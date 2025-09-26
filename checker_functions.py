@@ -1,4 +1,5 @@
 import re
+import os
 from sexpdata import loads, Symbol
 from hyperon import *
 from prompts import *
@@ -158,6 +159,7 @@ def connectivity_check(declares):
 
 def chaining(type_defs, declares, query, handler=None, timeout=300.0, log=False):
     print(f"Chaining (handler = {handler}):\n```\ntype_defs = {type_defs}\ndeclares = {declares}\nquery = {query}\n```")
+    os.chdir(os.environ.get("MM2CHAINER_DIR"))
     if handler == None:
         handler = MorkHandler()
         try:
