@@ -164,15 +164,13 @@ def chaining(type_defs, declares, query, handler=None, timeout=300.0, log=False)
         handler = MorkHandler()
         try:
             for x in type_defs + declares:
-                # flatten nested And's and Or's to reduce the chance of running out of chaining depth, for now
-                x = flatten_ands_ors(x)
+                x = temp_postprocess(x)
                 print(f"... adding to space: {x}")
                 handler.add_atom(x, log=log)
         except Exception as e:
             print(f"\n!!! EXCEPTION: {e}\n")
             return None
-    # flatten the query as well, for the same reason above
-    query = flatten_ands_ors(query)
+    query = temp_postprocess(query)
     print(f"... chaining for: {query}")
     try:
         result = handler.query(query, timeout=timeout, log=log)

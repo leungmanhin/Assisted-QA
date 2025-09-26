@@ -99,7 +99,7 @@ print(result)
         fp.write(fstr)
         print(f"... created test case: {tc_file}\n")
 
-# TODO: temp workaround, to be removed when a faster chainer is ready
+# TODO: to be removed when we don't need to care so much about the chaining 'depth'
 def flatten_ands_ors(expr: str) -> str:
     tokens = re.findall(r'\(|\)|[^\s()]+', expr)
 
@@ -143,3 +143,18 @@ def flatten_ands_ors(expr: str) -> str:
         return node
 
     return to_string(flat_tree)
+
+# TODO: to be removed when floats are properly supported in MORK
+def drop_stv_2nd_digit(expr):
+    pattern = re.compile(r"(STV (\d)\.(\d)\d* (\d)\.(\d)\d*)")
+
+    def repl(match):
+        first_num = match.group(2) + "." + match.group(3)
+        second_num = match.group(4) + "." + match.group(5)
+        return f"STV {first_num} {second_num}"
+
+    return pattern.sub(repl, expr)
+
+# TODO: just a wrapper, to be removed when we don't need these workarounds anymore
+def temp_postprocess(expr):
+    return drop_stv_2nd_digit(flatten_ands_ors(expr))

@@ -139,7 +139,7 @@ def qa(all_type_defs, all_declares, query, max_back_forth_per_question=1):
             # TODO: currently it may fail due to insufficient chaining depth, but increasing the depth can be impractically slow
             print(f"Failed to answer '{query}', skipping for now...")
             # for later debugging
-            print_test_case([flatten_ands_ors(x) for x in all_type_defs + all_declares], flatten_ands_ors(query))
+            print_test_case([temp_postprocess(x) for x in all_type_defs + all_declares], temp_postprocess(query))
             break
         else:
             # TODO: have a different prompt if it's making a 2+ attempt?
