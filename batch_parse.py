@@ -1,4 +1,5 @@
 from core_functions import *
+from util_functions import *
 from datetime import datetime, timezone, timedelta
 
 current_time = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d-%H-%M-%S")
@@ -8,7 +9,7 @@ qa_outputs = []
 all_outputs = []
 failed_cases = []
 
-filename = input("Enter the full name of the file to be parsed: ")
+filename = input("Enter the full name of the JSON file to be parsed: ")
 
 with open(f"{filename}", "r") as fp:
     data = json.load(fp)
