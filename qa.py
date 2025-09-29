@@ -38,12 +38,12 @@ while True:
             break
 
 while True:
-    question = input("\n====== ['/exit' to exit | '/save' to save] ======\n\nEnter a question: ")
+    qcmd = input("\n====== ['/exit' to exit | '/save' to save] ======\n\nEnter a question: ")
 
-    if question == "/exit":
+    if qcmd == "/exit":
         print("... exiting")
         break
-    elif question == "/save":
+    elif qcmd == "/save":
         current_time = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d-%H-%M-%S")
         qa_out_file = f"qa_{current_time}.json"
         print(f"... saving to {qa_out_file}\n")
@@ -63,7 +63,9 @@ while True:
             qa_out_file)
         continue
 
+    question = qcmd
     print(f"\n... parsing: {question}")
+
     ques_result = nl2pln(question, mode="querying")
     if ques_result == None:
         print(f"Failed parsing the question: '{question}', please try another one.")
