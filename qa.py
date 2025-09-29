@@ -1,4 +1,6 @@
 from core_functions import *
+from util_functions import *
+from datetime import datetime, timezone, timedelta
 
 while True:
     mode = input("Enter either:\n- '1' to parse a sentence as the KB\n- '2' to read a KB from a file\n- '3' to use a simple test KB\n")
@@ -36,14 +38,30 @@ while True:
             break
 
 while True:
-    question = input("Enter a question: ")
+    question = input("\n====== ['/exit' to exit | '/save' to save] ======\n\nEnter a question: ")
 
     if question == "/exit":
         print("... exiting")
         break
     elif question == "/save":
-        print("... saving")
-        # TODO
+        current_time = datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d-%H-%M-%S")
+        qa_out_file = f"qa_{current_time}.json"
+        print(f"... saving to {qa_out_file}\n")
+        output_to_json_file({
+                "sentence": sentence,
+                "type_defs": type_defs,
+                "declares": declares,
+                "question": question,
+                "q_type_defs": q_type_defs,
+                "q_declares": q_declares,
+                "query": query,
+                "r_type_defs": r_type_defs,
+                "r_instances": r_instances,
+                "r_rules": r_rules,
+                "chaining_result": chaining_result
+            },
+            qa_out_file)
+        continue
 
     print(f"\n... parsing: {question}")
     ques_result = nl2pln(question, mode="querying")
