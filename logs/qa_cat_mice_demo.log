@@ -1,0 +1,262 @@
+(sp-venv) manhin@mh-omnibook:~/Dev/Assisted-QA$ python3 qa.py
+Enter either:
+- '1' to parse a sentence as the KB
+- '2' to read a KB from a file
+- '3' to use a simple test KB
+1
+Enter a sentence: The cat ate the mice, that's why she's so full now.
+
+... parsing: The cat ate the mice, that's why she's so full now.
+[history length = 3]
+Current outputs:
+```
+type_defs = ['(: Eat (-> Concept Type))', '(: Be (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Patient (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Property (-> Concept Concept Type))', '(: Cat (-> Concept Type))', '(: Mouse (-> Concept Type))', '(: Full (-> Concept Type))', '(: Intensity (-> Concept Concept Type))', '(: Time (-> Concept Concept Type))', '(: Pronoun (-> Concept Type))', '(: Cause (-> Concept Concept Type))']
+declares = ['(: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.95 0.9)))', '(: mice_are_mice (WithTV (Mouse the_mice) (STV 0.95 0.9)))', '(: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.99 0.9)))', '(: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.85)))', '(: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.95 0.9)))', '(: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.95 0.9)))', '(: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.95 0.9)))', '(: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.98 0.9)))', '(: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.95 0.9)))', '(: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.95 0.9)))', '(: full_property_is_full (WithTV (Full full_property) (STV 0.99 0.9)))', '(: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.95 0.9)))', '(: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.98 0.9)))', '(: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.95 0.9)))', '(: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))', '(: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.85)))']
+queries = []
+improvement_advice =
+```
+
+PASSED FORMAT CHECK!!
+
+Enter a question: Why is the cat so full?
+
+... parsing: Why is the cat so full?
+[history length = 3]
+Current outputs:
+```
+type_defs = ['(: Cat (-> Concept Type))', '(: Full (-> Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Cause (-> Concept Concept Type))', '(: Degree (-> Concept Concept Type))']
+declares = []
+queries = ['(: $prf_cause (WithTV (And (Cat the_cat) (And (Full $e_full) (And (Theme $e_full the_cat) (And (Tense $e_full present_tense) (And (Degree $e_full degree_high) (Cause $e_cause $e_full)))))) $tv_cause))']
+improvement_advice =
+```
+
+PASSED FORMAT CHECK!!
+
+Chaining (handler = None):
+```
+type_defs = ['(: Full (-> Concept Type))', '(: Eat (-> Concept Type))', '(: Time (-> Concept Concept Type))', '(: Property (-> Concept Concept Type))', '(: Cat (-> Concept Type))', '(: Intensity (-> Concept Concept Type))', '(: Cause (-> Concept Concept Type))', '(: Degree (-> Concept Concept Type))', '(: Mouse (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Be (-> Concept Type))', '(: Patient (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Pronoun (-> Concept Type))']
+declares = ['(: full_property_is_full (WithTV (Full full_property) (STV 0.99 0.9)))', '(: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.95 0.9)))', '(: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.95 0.9)))', '(: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.85)))', '(: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.98 0.9)))', '(: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.99 0.9)))', '(: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.95 0.9)))', '(: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.95 0.9)))', '(: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.95 0.9)))', '(: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))', '(: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.98 0.9)))', '(: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.85)))', '(: mice_are_mice (WithTV (Mouse the_mice) (STV 0.95 0.9)))', '(: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.95 0.9)))', '(: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.95 0.9)))', '(: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.95 0.9)))']
+query = (: $prf_cause (WithTV (And (Cat the_cat) (And (Full $e_full) (And (Theme $e_full the_cat) (And (Tense $e_full present_tense) (And (Degree $e_full degree_high) (Cause $e_cause $e_full)))))) $tv_cause))
+```
+... adding to space: (: Full (-> Concept Type))
+... adding to space: (: Eat (-> Concept Type))
+... adding to space: (: Time (-> Concept Concept Type))
+... adding to space: (: Property (-> Concept Concept Type))
+... adding to space: (: Cat (-> Concept Type))
+... adding to space: (: Intensity (-> Concept Concept Type))
+... adding to space: (: Cause (-> Concept Concept Type))
+... adding to space: (: Degree (-> Concept Concept Type))
+... adding to space: (: Mouse (-> Concept Type))
+... adding to space: (: Agent (-> Concept Concept Type))
+... adding to space: (: Be (-> Concept Type))
+... adding to space: (: Patient (-> Concept Concept Type))
+... adding to space: (: Theme (-> Concept Concept Type))
+... adding to space: (: Pronoun (-> Concept Type))
+... adding to space: (: full_property_is_full (WithTV (Full full_property) (STV 0.9 0.9)))
+... adding to space: (: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.9 0.9)))
+... adding to space: (: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.8)))
+... adding to space: (: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.9 0.9)))
+... adding to space: (: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.9 0.9)))
+... adding to space: (: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))
+... adding to space: (: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.9 0.9)))
+... adding to space: (: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.8)))
+... adding to space: (: mice_are_mice (WithTV (Mouse the_mice) (STV 0.9 0.9)))
+... adding to space: (: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.9 0.9)))
+... chaining for: (: $prf_cause (WithTV (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $tv_cause))
+['(goal Nil (: $prf_cause (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $tv_cause))', '(kb (((: $25175170 (Cat the_cat) (STV $25175206 $25175212)) ((: $25175230 (Full $e_full) (STV $25175280 $25175286)) ((CPU and-formula ((STV $25175206 $25175212) (STV $25175280 $25175286)) $25175364) ((: $25175382 (Theme $e_full the_cat) $25175426) ((CPU and-formula ((STV $25175206 $25175212) $25175426) $25175486) ((: $25175504 (Tense $e_full present_tense) $25175548) ((CPU and-formula ((STV $25175206 $25175212) $25175548) $25175608) ((: $25175626 (Degree $e_full degree_high) $25175670) ((CPU and-formula ((STV $25175206 $25175212) $25175670) $25175730) ((: $25175748 (Cause $e_cause $e_full) $25175806) ((CPU and-formula ((STV $25175206 $25175212) $25175806) $25175866) Empty))))))))))) |- (: (conjunction $25175170 $25175230 $25175382 $25175504 $25175626 $25175748) (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $25175866)))']
+Chaining result: []
+
+... retrying qa for: (: $prf_cause (WithTV (And (Cat the_cat) (And (Full $e_full) (And (Theme $e_full the_cat) (And (Tense $e_full present_tense) (And (Degree $e_full degree_high) (Cause $e_cause $e_full)))))) $tv_cause))
+[history length = 1]
+Newly propose:
+```
+r_type_defs = ['(: Degree (-> Concept Concept Type))']
+r_instances = ['(: high_intensity_similar_degree_high (WithTV (Similarity high_intensity degree_high) (STV 0.93 0.85)))']
+r_rules = ['(: full_event_from_property_full (WithTV (Implication (And (Property $e_full $p_full) (Full $p_full)) (Full $e_full)) (STV 0.92 0.85)))', '(: degree_from_intensity_via_similarity (WithTV (Implication (And (Intensity $e $i) (Similarity $i $d)) (Degree $e $d)) (STV 0.9 0.85)))']
+r_improvement_advice =
+```
+
+Chaining (handler = None):
+```
+type_defs = ['(: Full (-> Concept Type))', '(: Eat (-> Concept Type))', '(: Time (-> Concept Concept Type))', '(: Property (-> Concept Concept Type))', '(: Cat (-> Concept Type))', '(: Intensity (-> Concept Concept Type))', '(: Cause (-> Concept Concept Type))', '(: Degree (-> Concept Concept Type))', '(: Mouse (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Be (-> Concept Type))', '(: Patient (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Pronoun (-> Concept Type))']
+declares = ['(: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.95 0.9)))', '(: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.98 0.9)))', '(: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.99 0.9)))', '(: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))', '(: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.85)))', '(: high_intensity_similar_degree_high (WithTV (Similarity high_intensity degree_high) (STV 0.93 0.85)))', '(: full_property_is_full (WithTV (Full full_property) (STV 0.99 0.9)))', '(: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.95 0.9)))', '(: degree_from_intensity_via_similarity (WithTV (Implication (And (Intensity $e $i) (Similarity $i $d)) (Degree $e $d)) (STV 0.9 0.85)))', '(: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.98 0.9)))', '(: mice_are_mice (WithTV (Mouse the_mice) (STV 0.95 0.9)))', '(: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.95 0.9)))', '(: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.95 0.9)))', '(: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.95 0.9)))', '(: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.95 0.9)))', '(: full_event_from_property_full (WithTV (Implication (And (Property $e_full $p_full) (Full $p_full)) (Full $e_full)) (STV 0.92 0.85)))', '(: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.95 0.9)))', '(: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.95 0.9)))', '(: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.85)))']
+query = (: $prf_cause (WithTV (And (Cat the_cat) (And (Full $e_full) (And (Theme $e_full the_cat) (And (Tense $e_full present_tense) (And (Degree $e_full degree_high) (Cause $e_cause $e_full)))))) $tv_cause))
+```
+... adding to space: (: Full (-> Concept Type))
+... adding to space: (: Eat (-> Concept Type))
+... adding to space: (: Time (-> Concept Concept Type))
+... adding to space: (: Property (-> Concept Concept Type))
+... adding to space: (: Cat (-> Concept Type))
+... adding to space: (: Intensity (-> Concept Concept Type))
+... adding to space: (: Cause (-> Concept Concept Type))
+... adding to space: (: Degree (-> Concept Concept Type))
+... adding to space: (: Mouse (-> Concept Type))
+... adding to space: (: Agent (-> Concept Concept Type))
+... adding to space: (: Be (-> Concept Type))
+... adding to space: (: Patient (-> Concept Concept Type))
+... adding to space: (: Theme (-> Concept Concept Type))
+... adding to space: (: Pronoun (-> Concept Type))
+... adding to space: (: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.9 0.9)))
+... adding to space: (: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.9 0.9)))
+... adding to space: (: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))
+... adding to space: (: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.8)))
+... adding to space: (: high_intensity_similar_degree_high (WithTV (Similarity high_intensity degree_high) (STV 0.9 0.8)))
+... adding to space: (: full_property_is_full (WithTV (Full full_property) (STV 0.9 0.9)))
+... adding to space: (: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.9 0.9)))
+... adding to space: (: degree_from_intensity_via_similarity (WithTV (Implication (And (Intensity $e $i) (Similarity $i $d)) (Degree $e $d)) (STV 0.9 0.8)))
+... adding to space: (: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.9 0.9)))
+... adding to space: (: mice_are_mice (WithTV (Mouse the_mice) (STV 0.9 0.9)))
+... adding to space: (: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.9 0.9)))
+... adding to space: (: full_event_from_property_full (WithTV (Implication (And (Property $e_full $p_full) (Full $p_full)) (Full $e_full)) (STV 0.9 0.8)))
+... adding to space: (: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.9 0.9)))
+... adding to space: (: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.9 0.9)))
+... adding to space: (: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.8)))
+... chaining for: (: $prf_cause (WithTV (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $tv_cause))
+['(goal Nil (: $prf_cause (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $tv_cause))', '(kb (((: $37982850 (Cat the_cat) (STV $37982886 $37982892)) ((: $37982910 (Full $e_full) (STV $37982960 $37982966)) ((CPU and-formula ((STV $37982886 $37982892) (STV $37982960 $37982966)) $37983044) ((: $37983062 (Theme $e_full the_cat) $37983106) ((CPU and-formula ((STV $37982886 $37982892) $37983106) $37983166) ((: $37983184 (Tense $e_full present_tense) $37983228) ((CPU and-formula ((STV $37982886 $37982892) $37983228) $37983288) ((: $37983306 (Degree $e_full degree_high) $37983350) ((CPU and-formula ((STV $37982886 $37982892) $37983350) $37983410) ((: $37983428 (Cause $e_cause $e_full) $37983486) ((CPU and-formula ((STV $37982886 $37982892) $37983486) $37983546) Empty))))))))))) |- (: (conjunction $37982850 $37982910 $37983062 $37983184 $37983306 $37983428) (And (Cat the_cat) (Full $e_full) (Theme $e_full the_cat) (Tense $e_full present_tense) (Degree $e_full degree_high) (Cause $e_cause $e_full)) $37983546)))']
+Chaining result: ['(ev Nil (: (conjunction cat_is_a_cat (full_event_from_property_full (conjunction be_full_event_property_full full_property_is_full)) be_full_event_theme_cat be_full_event_present_tense (degree_from_intensity_via_similarity (conjunction be_full_event_intensity_high high_intensity_similar_degree_high)) eating_causes_fullness) (And (Cat the_cat) (Full be_full_event_1) (Theme be_full_event_1 the_cat) (Tense be_full_event_1 present_tense) (Degree be_full_event_1 degree_high) (Cause eat_event_1 be_full_event_1)) (STV 0.8 0.8)))']
+
+ANSWER FOUND!!
+
+... needed to add:
+r_type_defs = ['(: Degree (-> Concept Concept Type))']
+r_instances = ['(: high_intensity_similar_degree_high (WithTV (Similarity high_intensity degree_high) (STV 0.93 0.85)))']
+r_rules = ['(: full_event_from_property_full (WithTV (Implication (And (Property $e_full $p_full) (Full $p_full)) (Full $e_full)) (STV 0.92 0.85)))', '(: degree_from_intensity_via_similarity (WithTV (Implication (And (Intensity $e $i) (Similarity $i $d)) (Degree $e $d)) (STV 0.9 0.85)))']
+
+... constructing the answer
+Answer: The cat is very full because she ate the mice.
+
+===
+
+Enter a question: What did the cat eat?
+
+... parsing: What did the cat eat?
+[history length = 3]
+Current outputs:
+```
+type_defs = ['(: Eat (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Cat (-> Concept Type))']
+declares = []
+queries = ['(: $prf (WithTV (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv))']
+improvement_advice =
+```
+
+... retrying metta_type_check for: (: $prf (WithTV (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv)) | ['(: Eat (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Cat (-> Concept Type))']
+
+[history length = 5]
+Current outputs:
+```
+type_defs = ['(: Eat (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Cat (-> Concept Type))']
+declares = []
+queries = ['(: $prf (WithTV (And (Eat $e) (And (Agent $e the_cat) (And (Theme $e $what) (And (Tense $e past_tense) (Cat the_cat))))) $tv))']
+improvement_advice = And and Or are binary per their type signatures; for more than two conjuncts/disjuncts, they must be nested.
+```
+
+PASSED FORMAT CHECK!!
+
+Chaining (handler = None):
+```
+type_defs = ['(: Full (-> Concept Type))', '(: Eat (-> Concept Type))', '(: Time (-> Concept Concept Type))', '(: Property (-> Concept Concept Type))', '(: Cat (-> Concept Type))', '(: Intensity (-> Concept Concept Type))', '(: Cause (-> Concept Concept Type))', '(: Mouse (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Be (-> Concept Type))', '(: Patient (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Pronoun (-> Concept Type))']
+declares = ['(: full_property_is_full (WithTV (Full full_property) (STV 0.99 0.9)))', '(: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.95 0.9)))', '(: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.95 0.9)))', '(: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.85)))', '(: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.98 0.9)))', '(: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.99 0.9)))', '(: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.95 0.9)))', '(: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.95 0.9)))', '(: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.95 0.9)))', '(: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))', '(: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.98 0.9)))', '(: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.85)))', '(: mice_are_mice (WithTV (Mouse the_mice) (STV 0.95 0.9)))', '(: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.95 0.9)))', '(: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.95 0.9)))', '(: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.95 0.9)))']
+query = (: $prf (WithTV (And (Eat $e) (And (Agent $e the_cat) (And (Theme $e $what) (And (Tense $e past_tense) (Cat the_cat))))) $tv))
+```
+... adding to space: (: Full (-> Concept Type))
+... adding to space: (: Eat (-> Concept Type))
+... adding to space: (: Time (-> Concept Concept Type))
+... adding to space: (: Property (-> Concept Concept Type))
+... adding to space: (: Cat (-> Concept Type))
+... adding to space: (: Intensity (-> Concept Concept Type))
+... adding to space: (: Cause (-> Concept Concept Type))
+... adding to space: (: Mouse (-> Concept Type))
+... adding to space: (: Agent (-> Concept Concept Type))
+... adding to space: (: Be (-> Concept Type))
+... adding to space: (: Patient (-> Concept Concept Type))
+... adding to space: (: Theme (-> Concept Concept Type))
+... adding to space: (: Pronoun (-> Concept Type))
+... adding to space: (: full_property_is_full (WithTV (Full full_property) (STV 0.9 0.9)))
+... adding to space: (: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.9 0.9)))
+... adding to space: (: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.8)))
+... adding to space: (: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.9 0.9)))
+... adding to space: (: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.9 0.9)))
+... adding to space: (: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))
+... adding to space: (: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.9 0.9)))
+... adding to space: (: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.8)))
+... adding to space: (: mice_are_mice (WithTV (Mouse the_mice) (STV 0.9 0.9)))
+... adding to space: (: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.9 0.9)))
+... chaining for: (: $prf (WithTV (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv))
+['(goal Nil (: $prf (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv))', '(kb (((: $23651158 (Eat $e) (STV $23651208 $23651214)) ((: $23651232 (Agent $e the_cat) $23651276) ((CPU and-formula ((STV $23651208 $23651214) $23651276) $23651336) ((: $23651354 (Theme $e $what) $23651412) ((CPU and-formula ((STV $23651208 $23651214) $23651412) $23651472) ((: $23651490 (Tense $e past_tense) $23651534) ((CPU and-formula ((STV $23651208 $23651214) $23651534) $23651594) ((: $23651612 (Cat the_cat) (STV $23651648 $23651654)) ((CPU and-formula ((STV $23651208 $23651214) (STV $23651648 $23651654)) $23651732) Empty))))))))) |- (: (conjunction $23651158 $23651232 $23651354 $23651490 $23651612) (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $23651732)))']
+Chaining result: []
+
+... retrying qa for: (: $prf (WithTV (And (Eat $e) (And (Agent $e the_cat) (And (Theme $e $what) (And (Tense $e past_tense) (Cat the_cat))))) $tv))
+[history length = 1]
+Newly propose:
+```
+r_type_defs = ['(: Theme (-> Concept Concept Type))', '(: Patient (-> Concept Concept Type))']
+r_instances = []
+r_rules = ['(: patient_implies_theme (WithTV (Implication (Patient $e $x) (Theme $e $x)) (STV 0.95 0.85)))']
+r_improvement_advice =
+```
+
+Chaining (handler = None):
+```
+type_defs = ['(: Full (-> Concept Type))', '(: Eat (-> Concept Type))', '(: Time (-> Concept Concept Type))', '(: Property (-> Concept Concept Type))', '(: Cat (-> Concept Type))', '(: Intensity (-> Concept Concept Type))', '(: Cause (-> Concept Concept Type))', '(: Mouse (-> Concept Type))', '(: Agent (-> Concept Concept Type))', '(: Be (-> Concept Type))', '(: Patient (-> Concept Concept Type))', '(: Theme (-> Concept Concept Type))', '(: Pronoun (-> Concept Type))']
+declares = ['(: full_property_is_full (WithTV (Full full_property) (STV 0.99 0.9)))', '(: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.95 0.9)))', '(: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.95 0.9)))', '(: patient_implies_theme (WithTV (Implication (Patient $e $x) (Theme $e $x)) (STV 0.95 0.85)))', '(: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.98 0.9)))', '(: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.99 0.9)))', '(: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.95 0.9)))', '(: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.95 0.9)))', '(: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.95 0.9)))', '(: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.95 0.9)))', '(: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))', '(: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.98 0.9)))', '(: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.85)))', '(: mice_are_mice (WithTV (Mouse the_mice) (STV 0.95 0.9)))', '(: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.85)))', '(: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.95 0.9)))', '(: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.95 0.9)))']
+query = (: $prf (WithTV (And (Eat $e) (And (Agent $e the_cat) (And (Theme $e $what) (And (Tense $e past_tense) (Cat the_cat))))) $tv))
+```
+... adding to space: (: Full (-> Concept Type))
+... adding to space: (: Eat (-> Concept Type))
+... adding to space: (: Time (-> Concept Concept Type))
+... adding to space: (: Property (-> Concept Concept Type))
+... adding to space: (: Cat (-> Concept Type))
+... adding to space: (: Intensity (-> Concept Concept Type))
+... adding to space: (: Cause (-> Concept Concept Type))
+... adding to space: (: Mouse (-> Concept Type))
+... adding to space: (: Agent (-> Concept Concept Type))
+... adding to space: (: Be (-> Concept Type))
+... adding to space: (: Patient (-> Concept Concept Type))
+... adding to space: (: Theme (-> Concept Concept Type))
+... adding to space: (: Pronoun (-> Concept Type))
+... adding to space: (: full_property_is_full (WithTV (Full full_property) (STV 0.9 0.9)))
+... adding to space: (: eat_event_exists (WithTV (Eat eat_event_1) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_property_full (WithTV (Property be_full_event_1 full_property) (STV 0.9 0.9)))
+... adding to space: (: patient_implies_theme (WithTV (Implication (Patient $e $x) (Theme $e $x)) (STV 0.9 0.8)))
+... adding to space: (: eat_event_past_tense (WithTV (Tense eat_event_1 past_tense) (STV 0.9 0.9)))
+... adding to space: (: she_is_pronoun (WithTV (Pronoun she_pronoun) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_exists (WithTV (Be be_full_event_1) (STV 0.9 0.9)))
+... adding to space: (: eat_event_patient_mice (WithTV (Patient eat_event_1 the_mice) (STV 0.9 0.9)))
+... adding to space: (: eat_event_agent_cat (WithTV (Agent eat_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_time_now (WithTV (Time be_full_event_1 now) (STV 0.9 0.9)))
+... adding to space: (: be_full_event_intensity_high (WithTV (Intensity be_full_event_1 high_intensity) (STV 0.8 0.7)))
+... adding to space: (: be_full_event_present_tense (WithTV (Tense be_full_event_1 present_tense) (STV 0.9 0.9)))
+... adding to space: (: she_refers_to_cat (WithTV (Similarity she_pronoun the_cat) (STV 0.9 0.8)))
+... adding to space: (: mice_are_mice (WithTV (Mouse the_mice) (STV 0.9 0.9)))
+... adding to space: (: eating_causes_fullness (WithTV (Cause eat_event_1 be_full_event_1) (STV 0.9 0.8)))
+... adding to space: (: be_full_event_theme_cat (WithTV (Theme be_full_event_1 the_cat) (STV 0.9 0.9)))
+... adding to space: (: cat_is_a_cat (WithTV (Cat the_cat) (STV 0.9 0.9)))
+... chaining for: (: $prf (WithTV (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv))
+['(goal Nil (: $prf (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $tv))', '(kb (((: $26056042 (Eat $e) (STV $26056092 $26056098)) ((: $26056116 (Agent $e the_cat) $26056160) ((CPU and-formula ((STV $26056092 $26056098) $26056160) $26056220) ((: $26056238 (Theme $e $what) $26056296) ((CPU and-formula ((STV $26056092 $26056098) $26056296) $26056356) ((: $26056374 (Tense $e past_tense) $26056418) ((CPU and-formula ((STV $26056092 $26056098) $26056418) $26056478) ((: $26056496 (Cat the_cat) (STV $26056532 $26056538)) ((CPU and-formula ((STV $26056092 $26056098) (STV $26056532 $26056538)) $26056616) Empty))))))))) |- (: (conjunction $26056042 $26056116 $26056238 $26056374 $26056496) (And (Eat $e) (Agent $e the_cat) (Theme $e $what) (Tense $e past_tense) (Cat the_cat)) $26056616)))']
+Chaining result: ['(ev Nil (: (conjunction eat_event_exists eat_event_agent_cat (patient_implies_theme eat_event_patient_mice) eat_event_past_tense cat_is_a_cat) (And (Eat eat_event_1) (Agent eat_event_1 the_cat) (Theme eat_event_1 the_mice) (Tense eat_event_1 past_tense) (Cat the_cat)) (STV 0.8 0.9)))']
+
+ANSWER FOUND!!
+
+... needed to add:
+r_type_defs = ['(: Theme (-> Concept Concept Type))', '(: Patient (-> Concept Concept Type))']
+r_instances = []
+r_rules = ['(: patient_implies_theme (WithTV (Implication (Patient $e $x) (Theme $e $x)) (STV 0.95 0.85)))']
+
+... constructing the answer
+Answer: The cat ate the mice.
