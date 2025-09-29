@@ -159,6 +159,7 @@ def connectivity_check(declares):
 
 def chaining(type_defs, declares, query, handler=None, timeout=300.0, log=False):
     print(f"Chaining (handler = {handler}):\n```\ntype_defs = {type_defs}\ndeclares = {declares}\nquery = {query}\n```")
+    curdir = os.getcwd()
     os.chdir(os.environ.get("MM2CHAINER_DIR"))
     if handler == None:
         handler = MorkHandler()
@@ -169,6 +170,7 @@ def chaining(type_defs, declares, query, handler=None, timeout=300.0, log=False)
                 handler.add_atom(x, log=log)
         except Exception as e:
             print(f"\n!!! EXCEPTION: {e}\n")
+            os.chdir(curdir)
             return None
     query = temp_postprocess(query)
     print(f"... chaining for: {query}")
@@ -176,6 +178,8 @@ def chaining(type_defs, declares, query, handler=None, timeout=300.0, log=False)
         result = handler.query(query, timeout=timeout, log=log)
     except Exception as e:
         print(f"\n!!! EXCEPTION: {e}\n")
+        os.chdir(curdir)
         return None
     print(f"Chaining result: {result}\n")
+    os.chdir(curdir)
     return result
