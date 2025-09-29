@@ -25,7 +25,7 @@ class EngSent(BaseModel):
 class EngQuestions(BaseModel):
     questions: list[str]
 
-def to_openai(prompt, model="gpt-5", effort="high", history=[], output_format=PLNExprs, via_openrouter=True):
+def to_openai(prompt, model="gpt-5", effort="high", history=[], output_format=PLNExprs, max_retries=108, via_openrouter=False):
     if via_openrouter:
         openrouter_api_key = os.environ.get("OPENROUTER_API_KEY")
         history.append({"role": "user", "content": prompt})
@@ -41,8 +41,9 @@ def to_openai(prompt, model="gpt-5", effort="high", history=[], output_format=PL
                 },
                 "response_format": type_to_response_format_param(output_format),
                 "messages": history,
+                # TODO XXX: Your organization must be verified to stream this model.
                 # "provider": {
-                #     "order": ["OpenAI"],
+                #     "order": ["openai"],
                 #     "allow_fallbacks": False
                 # }
             }),
@@ -51,17 +52,26 @@ def to_openai(prompt, model="gpt-5", effort="high", history=[], output_format=PL
         history.append({"role": "assistant", "content": response_content})
         return json.loads(response_content)
     else:
-        openai_client = OpenAI(max_retries=3)
+        openai_client = OpenAI()
         history.append({"role": "user", "content": prompt})
-        response = openai_client.responses.parse(
-            model = model,
-            reasoning = {"effort": effort},
-            input = history,
-            text_format = output_format,
-            store = False
-        )
-        history.append({"role": "assistant", "content": response.output_text})
-        return json.loads(response.output_text)
+        retried = 0
+        while retried < max_retries:
+            try:
+                response = openai_client.responses.parse(
+                    model = model,
+                    reasoning = {"effort": effort},
+                    input = history,
+                    text_format = output_format,
+                    store = False
+                )
+            except Exception as e:
+                retried += 1
+                print(f"... retry attempt #{retried}, Exception caught when calling OpenAI: {e}")
+        if retried == max_retries:
+            return None
+        else:
+            history.append({"role": "assistant", "content": response.output_text})
+            return json.loads(response.output_text)
 
 def output_to_json_file(json_dict, output_file):
     print(f"=== Writing to JSON ===\nFile: {output_file}\nContent: {json_dict}\n")
